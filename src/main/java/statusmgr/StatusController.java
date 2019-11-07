@@ -1,5 +1,6 @@
 package statusmgr;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import statusmgr.beans.ServerStatus;
@@ -9,20 +10,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controller for all web/REST requests about the status of servers
- *
+ * <p>
  * For initial school project - just handles info about this server
  * Syntax for URLS:
- *    All start with /server
- *    /status  will give back status of server
- *    a param of 'name' specifies a requestor name to appear in response
- *
+ * All start with /server
+ * /status  will give back status of server
+ * a param of 'name' specifies a requestor name to appear in response
+ * <p>
  * Examples:
- *    http://localhost:8080/server/status
- *
- *    http://localhost:8080/server/status?name=Noach
- *
- *
- *
+ * http://localhost:8080/server/status
+ * <p>
+ * http://localhost:8080/server/status?name=Noach
  */
 
 @RestController
@@ -33,8 +31,10 @@ public class StatusController {
     protected final AtomicLong counter = new AtomicLong();
 
     @RequestMapping("/status")
-    public ServerStatus greeting(@RequestParam(value="name", defaultValue="Anonymous") String name) {
+    public ServerStatus getCurrentServerStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name,
+                                               @RequestParam(required = false) List<String> details) {
+        System.out.println("*** DEBUG INFO ***" + details);
         return new ServerStatus(counter.incrementAndGet(),
-                            String.format(template, name));
+                String.format(template, name));
     }
 }
