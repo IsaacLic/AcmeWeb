@@ -48,7 +48,7 @@ public class StatusController {
      * @param details the desired details about the server status
      * @return the detailed server status
      */
-    @RequestMapping("/status/details")
+    @RequestMapping("/status/detailed")
     public ServerStatus getCurrentDetailedServerStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name,
                                                        @RequestParam List<String> details) {
         ServerStatus serverStatus = new ServerStatus(counter.incrementAndGet(),

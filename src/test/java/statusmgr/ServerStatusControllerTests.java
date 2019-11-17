@@ -53,14 +53,14 @@ public class ServerStatusControllerTests {
 
     @Test
     public void paramDetailsWithOperationsShouldAddOperationsInfo() throws Exception {
-        this.mockMvc.perform(get("/server/status/details").param("details", "operations"))
+        this.mockMvc.perform(get("/server/status/detailed").param("details", "operations"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.statusDesc").value("Server is up, and is operating normally"));
     }
 
     @Test
     public void paramDetailsWithExtensionsShouldAddExtensionsInfo() throws Exception {
-        this.mockMvc.perform(get("/server/status/details").param("details", "extensions"))
+        this.mockMvc.perform(get("/server/status/detailed").param("details", "extensions"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.statusDesc").value("Server is up, " +
                         "and is using these extensions - [Hypervisor, Kubernetes, RAID-6]"));
@@ -68,14 +68,14 @@ public class ServerStatusControllerTests {
 
     @Test
     public void paramDetailsWithMemoryShouldAddMemoryInfo() throws Exception {
-        this.mockMvc.perform(get("/server/status/details").param("details", "memory"))
+        this.mockMvc.perform(get("/server/status/detailed").param("details", "memory"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.statusDesc").value("Server is up, and its memory is Running low"));
     }
 
     @Test
     public void paramDetailsWithMultipleOptionsShouldAddAllRequiredInfo() throws Exception {
-        this.mockMvc.perform(get("/server/status/details").param("details",
+        this.mockMvc.perform(get("/server/status/detailed").param("details",
                 "memory", "operations", "extensions", "memory"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.statusDesc").value("Server is up," +
@@ -86,14 +86,14 @@ public class ServerStatusControllerTests {
 
     @Test
     public void emptyParamDetailsShouldCreateError() throws Exception {
-        this.mockMvc.perform(get("/server/status/details"))
+        this.mockMvc.perform(get("/server/status/detailed"))
                 .andExpect(status().is4xxClientError())
                 .andDo(print()).andExpect(status().is4xxClientError());
     }
 
     @Test
     public void paramDetailsWithInvalidOptionShouldCreateError() throws Exception {
-        this.mockMvc.perform(get("/server/status/details").param("details", "extensions", "junkError"))
+        this.mockMvc.perform(get("/server/status/detailed").param("details", "extensions", "junkError"))
                 .andExpect(status().is4xxClientError())
                 .andDo(print()).andExpect(status().is4xxClientError());
     }
