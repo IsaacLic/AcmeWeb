@@ -15,11 +15,6 @@
  */
 package com.acme.statusmgr;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +22,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -49,6 +49,53 @@ public class ServerStatusControllerTests {
         this.mockMvc.perform(get("/server/status").param("name", "RebYid"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.contentHeader").value("Server Status requested by RebYid"));
+    }
+
+    @Test
+    public void paramDetailsWithOperationsShouldAddOperationsInfo() throws Exception {
+        this.mockMvc.perform(get("/server/status/detailed").param("details", "operations"))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(jsonPath("$.statusDesc").value("Server is up, and is operating normally"));
+    }
+
+    @Test
+    public void paramDetailsWithExtensionsShouldAddExtensionsInfo() throws Exception {
+        this.mockMvc.perform(get("/server/status/detailed").param("details", "extensions"))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(jsonPath("$.statusDesc").value("Server is up, " +
+                        "and is using these extensions - [Hypervisor, Kubernetes, RAID-6]"));
+    }
+
+    @Test
+    public void paramDetailsWithMemoryShouldAddMemoryInfo() throws Exception {
+        this.mockMvc.perform(get("/server/status/detailed").param("details", "memory"))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(jsonPath("$.statusDesc").value("Server is up, and its memory is Running low"));
+    }
+
+    @Test
+    public void paramDetailsWithMultipleOptionsShouldAddAllRequiredInfo() throws Exception {
+        this.mockMvc.perform(get("/server/status/detailed").param("details",
+                "memory", "operations", "extensions", "memory"))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(jsonPath("$.statusDesc").value("Server is up," +
+                        " and its memory is Running low, and is operating normally, " +
+                        "and is using these extensions - [Hypervisor, Kubernetes, RAID-6], " +
+                        "and its memory is Running low"));
+    }
+
+    @Test
+    public void emptyParamDetailsShouldCreateError() throws Exception {
+        this.mockMvc.perform(get("/server/status/detailed"))
+                .andExpect(status().is4xxClientError())
+                .andDo(print()).andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void paramDetailsWithInvalidOptionShouldCreateError() throws Exception {
+        this.mockMvc.perform(get("/server/status/detailed").param("details", "extensions", "junkError"))
+                .andExpect(status().is4xxClientError())
+                .andDo(print()).andExpect(status().is4xxClientError());
     }
 
 }
