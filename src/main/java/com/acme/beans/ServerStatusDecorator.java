@@ -9,7 +9,10 @@ import com.acme.statusmgr.beans.ServerStatus;
  */
 public abstract class ServerStatusDecorator extends ServerStatus {
 
+    private final ServerStatus serverStatus;
+
     public ServerStatusDecorator(ServerStatus serverStatus) {
+        this.serverStatus = serverStatus;
     }
 
     /**
@@ -19,6 +22,16 @@ public abstract class ServerStatusDecorator extends ServerStatus {
      */
     public String getStatusDesc() {
         return ServerManager.getCurrentServerStatus();
+    }
+
+
+    public long getId() {
+        return serverStatus.getId();
+    }
+
+    public String getContentHeader() {
+
+        return serverStatus.getContentHeader();
     }
 
 }
