@@ -3,7 +3,7 @@ package com.acme.servermgr;
 /**
  * Declare contract for what a server monitor must be capable of doing.
  */
-public interface IMonitorableServer {
+public interface MonitorableServer {
 
     /**
      * A way to get a general description of the server's status.
