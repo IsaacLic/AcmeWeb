@@ -1,13 +1,11 @@
 package com.acme.servermgr;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 /**
- * Implement a fake server monitor such as would be used for unit tests, annotated as a Spring Service.
+ * Implement a 'real' server monitor, that gives back results that may differ from what unit tests expect.
  */
 @Service
-@Primary    // Use of this may cause unit tests to fail since they expect a canned output
 public class SlowRealMonitor implements IMonitorableServer {
 
     public String determineServerStatus() {
@@ -26,6 +24,9 @@ public class SlowRealMonitor implements IMonitorableServer {
 
     }
 
+    /**
+     * sleep 4 seconds
+     */
     private void wait4seconds() {
         try {
             Thread.sleep(4000);
