@@ -45,6 +45,9 @@ public class ServerStatus {
         return contentHeader;
     }
 
+    public ServerManager getServerManager(){
+        return serverManager;
+    }
 
     public String getStatusDesc() {
         return serverManager.getCurrentServerStatus();

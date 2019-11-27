@@ -24,7 +24,7 @@ public class OperationsDecorator extends ServerStatusDecorator {
      */
     public String getStatusDesc() {
         String operationStatusMessage;
-        if (ServerManager.isOperatingNormally()) {
+        if (serverStatus.getServerManager().isOperatingNormally()) {
             operationStatusMessage = "operating normally";
         } else {
             operationStatusMessage = "not operating normally";
