@@ -12,7 +12,7 @@ public class ServerManager {
     /**
      * Reference to a class that knows how to get details about what we are interested in on a server
      */
-    private MonitorableServer monitor;
+    private IMonitorableServer monitor;
 
     /**
      * Get the status of this server

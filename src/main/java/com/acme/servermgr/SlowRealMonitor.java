@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Primary    // Use of this may cause unit tests to fail since they expect a canned output
-public class SlowRealMonitor implements MonitorableServer {
+public class SlowRealMonitor implements IMonitorableServer {
 
     public String determineServerStatus() {
         Boolean goodStatus = true;
