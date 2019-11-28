@@ -1,9 +1,5 @@
 package com.acme.beans;
 
-import com.acme.beans.ServerStatusDecorator;
-import com.acme.servermgr.ServerManager;
-import com.acme.statusmgr.beans.ServerStatus;
-
 /**
  * Adds the detail about the memory to the ServerStatus
  */
@@ -23,6 +19,6 @@ public class MemoryDecorator extends ServerStatusDecorator {
      * @return the detailed status description
      */
     public String getStatusDesc() {
-        return serverStatus.getStatusDesc() + ", and its " + serverStatus.getServerManager().getMemoryStatus();
+        return serverStatus.getStatusDesc() + ", and its " + serverStatus.serverManager.getMemoryStatus();
     }
 }

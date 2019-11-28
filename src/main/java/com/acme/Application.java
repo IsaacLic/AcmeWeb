@@ -16,10 +16,9 @@ public class Application {
     /**
      * Maintain a reference to Spring's 'context' for our application.
      */
-    private static ApplicationContext applicationContext;
+    private static ApplicationContext applicationContext = null;
 
     public static void main(String[] args) {
-        applicationContext = new AnnotationConfigApplicationContext(Application.class);
         SpringApplication.run(Application.class, args);
     }
 
@@ -29,6 +28,11 @@ public class Application {
      * @return
      */
     public static ApplicationContext getApplicationContext() {
+
+        if (applicationContext == null) {
+            applicationContext = new AnnotationConfigApplicationContext(Application.class);
+        }
+
         return applicationContext;
     }
 }

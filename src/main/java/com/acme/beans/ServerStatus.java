@@ -1,4 +1,4 @@
-package com.acme.statusmgr.beans;
+package com.acme.beans;
 
 import com.acme.Application;
 import com.acme.servermgr.ServerManager;
@@ -15,7 +15,7 @@ public class ServerStatus {
     /**
      * This will refer to an instance of the ServerManager class (no longer static)
      */
-    private ServerManager serverManager;
+    protected ServerManager serverManager;
 
     /**
      * Construct a ServerStatus using info passed in for identification, and obtaining current
@@ -29,7 +29,7 @@ public class ServerStatus {
         this.contentHeader = contentHeader;
 
         // Obtain and save reference to the ServerManager
-        serverManager = (ServerManager) Application.getApplicationContext().getBean("serverManager");
+        serverManager = (ServerManager) Application.getApplicationContext().getBean("ServerManager");
     }
 
     public ServerStatus() {
@@ -43,10 +43,6 @@ public class ServerStatus {
     public String getContentHeader() {
 
         return contentHeader;
-    }
-
-    public ServerManager getServerManager(){
-        return serverManager;
     }
 
     public String getStatusDesc() {

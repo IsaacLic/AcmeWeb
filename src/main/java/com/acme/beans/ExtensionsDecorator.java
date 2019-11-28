@@ -1,8 +1,5 @@
 package com.acme.beans;
 
-import com.acme.servermgr.ServerManager;
-import com.acme.statusmgr.beans.ServerStatus;
-
 /**
  * Adds the detail about the extensions to the ServerStatus
  */
@@ -22,6 +19,6 @@ public class ExtensionsDecorator extends ServerStatusDecorator {
      * @return the detailed status description
      */
     public String getStatusDesc() {
-        return serverStatus.getStatusDesc() + ", and is using these extensions - " + serverStatus.getServerManager().getExtensions();
+        return serverStatus.getStatusDesc() + ", and is using these extensions - " + serverStatus.serverManager.getExtensions();
     }
 }
