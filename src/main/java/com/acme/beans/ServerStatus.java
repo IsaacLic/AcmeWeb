@@ -29,7 +29,7 @@ public class ServerStatus {
         this.contentHeader = contentHeader;
 
         // Obtain and save reference to the ServerManager
-        serverManager = (ServerManager) Application.getApplicationContext().getBean("ServerManager");
+        serverManager = (ServerManager) Application.getApplicationContext().getBean("serverManager");
     }
 
     public ServerStatus() {
