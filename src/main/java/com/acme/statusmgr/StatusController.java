@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.acme.BadRequestException;
+import com.acme.DecoratorFactory;
 import com.acme.beans.complex.ExtensionsDecorator;
 import com.acme.beans.complex.MemoryDecorator;
 import com.acme.beans.complex.OperationsDecorator;
 import com.acme.statusmgr.beans.ServerStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +36,9 @@ public class StatusController {
     protected static final String template = "Server Status requested by %s";
     protected final AtomicLong counter = new AtomicLong();
 
+    @Autowired
+    private DecoratorFactory decoratorFactory;
+
     @RequestMapping("/status")
     public ServerStatus getCurrentServerStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name,
                                                @RequestParam(required = false) List<String> details) {
@@ -55,9 +60,7 @@ public class StatusController {
         ServerStatus serverStatus = new ServerStatus(counter.incrementAndGet(),
                 String.format(template, name));
 
-        for (String detail : details) {
-            serverStatus = decorateServerStatus(serverStatus, detail);
-        }
+        serverStatus = decoratorFactory.createDecoratedStatus(serverStatus, details);
 
         return serverStatus;
     }

@@ -1,10 +1,16 @@
 package com.acme.beans.complex;
 
 import com.acme.BadRequestException;
+import com.acme.DecoratorFactory;
 import com.acme.statusmgr.beans.ServerStatus;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
-public class ComplexDecoratorFactory {
+import java.util.List;
 
+@Component
+@Primary
+public class ComplexDecoratorFactory implements DecoratorFactory {
 
     /**
      * selects which server status detail to be added, then adds it
@@ -24,5 +30,14 @@ public class ComplexDecoratorFactory {
             default:
                 throw new BadRequestException("Invalid details option: " + detail);
         }
+    }
+
+    @Override
+    public ServerStatus createDecoratedStatus(ServerStatus serverStatus, List<String> details) {
+        for (String detail : details) {
+            serverStatus = decorateServerStatus(serverStatus, detail);
+        }
+
+        return serverStatus;
     }
 }
