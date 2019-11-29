@@ -5,9 +5,11 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import com.acme.BadRequestException;
 import com.acme.DecoratorFactory;
+import com.acme.beans.complex.ComplexDecoratorFactory;
 import com.acme.beans.complex.ExtensionsDecorator;
 import com.acme.beans.complex.MemoryDecorator;
 import com.acme.beans.complex.OperationsDecorator;
+import com.acme.beans.simple.SimpleDecoratorFactory;
 import com.acme.statusmgr.beans.ServerStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,13 +58,34 @@ public class StatusController {
      */
     @RequestMapping("/status/detailed")
     public ServerStatus getCurrentDetailedServerStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name,
-                                                       @RequestParam List<String> details) {
+                                                       @RequestParam List<String> details,
+                                                       @RequestParam(value = "levelofdetail", required = false) String levelOfDetail) {
         ServerStatus serverStatus = new ServerStatus(counter.incrementAndGet(),
                 String.format(template, name));
+
+        setDecoratorFactory(levelOfDetail);
 
         serverStatus = decoratorFactory.createDecoratedStatus(serverStatus, details);
 
         return serverStatus;
+    }
+
+    private void setDecoratorFactory(String levelOfDetail) {
+        if (levelOfDetail == null){
+            return;
+        }
+
+        if (levelOfDetail.equals("complex")){
+            decoratorFactory = new ComplexDecoratorFactory();
+            return;
+        }
+
+        if (levelOfDetail.equals("complex")){
+            decoratorFactory = new SimpleDecoratorFactory();
+            return;
+        }
+
+        throw new BadRequestException("Invalid level of detail.");
     }
 
 }
