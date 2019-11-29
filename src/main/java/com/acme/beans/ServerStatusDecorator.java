@@ -12,6 +12,7 @@ public abstract class ServerStatusDecorator extends ServerStatus {
     private final ServerStatus serverStatus;
 
     public ServerStatusDecorator(ServerStatus serverStatus) {
+        super(serverStatus.getId(),serverStatus.getContentHeader());
         this.serverStatus = serverStatus;
     }
 
