@@ -1,6 +1,5 @@
-package com.acme.beans;
+package com.acme.beans.complex;
 
-import com.acme.beans.ServerStatusDecorator;
 import com.acme.servermgr.ServerManager;
 import com.acme.statusmgr.beans.ServerStatus;
 

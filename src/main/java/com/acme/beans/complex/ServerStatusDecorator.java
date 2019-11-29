@@ -1,4 +1,4 @@
-package com.acme.beans;
+package com.acme.beans.complex;
 
 
 import com.acme.servermgr.ServerManager;

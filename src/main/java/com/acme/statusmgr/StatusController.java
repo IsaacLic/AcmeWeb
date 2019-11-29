@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.acme.BadRequestException;
-import com.acme.beans.ExtensionsDecorator;
-import com.acme.beans.MemoryDecorator;
-import com.acme.beans.OperationsDecorator;
+import com.acme.beans.complex.ExtensionsDecorator;
+import com.acme.beans.complex.MemoryDecorator;
+import com.acme.beans.complex.OperationsDecorator;
 import com.acme.statusmgr.beans.ServerStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
