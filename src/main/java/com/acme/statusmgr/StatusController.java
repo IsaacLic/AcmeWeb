@@ -1,16 +1,18 @@
 package com.acme.statusmgr;
 
-import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
-
 import com.acme.BadRequestException;
-import com.acme.beans.ExtensionsDecorator;
-import com.acme.beans.MemoryDecorator;
-import com.acme.beans.OperationsDecorator;
+import com.acme.DecoratorFactory;
 import com.acme.beans.ServerStatus;
+import com.acme.beans.complex.ComplexDecoratorFactory;
+import com.acme.beans.simple.SimpleDecoratorFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
+
 
 /**
  * Controller for all web/REST requests about the status of servers
@@ -34,6 +36,9 @@ public class StatusController {
     protected static final String template = "Server Status requested by %s";
     protected final AtomicLong counter = new AtomicLong();
 
+    @Autowired
+    private DecoratorFactory decoratorFactory;
+
     @RequestMapping("/status")
     public ServerStatus getCurrentServerStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name,
                                                @RequestParam(required = false) List<String> details) {
@@ -51,34 +56,34 @@ public class StatusController {
      */
     @RequestMapping("/status/detailed")
     public ServerStatus getCurrentDetailedServerStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name,
-                                                       @RequestParam List<String> details) {
+                                                       @RequestParam List<String> details,
+                                                       @RequestParam(value = "levelofdetail", required = false) String levelOfDetail) {
         ServerStatus serverStatus = new ServerStatus(counter.incrementAndGet(),
                 String.format(template, name));
 
-        for (String detail : details) {
-            serverStatus = decorateServerStatus(serverStatus, detail);
-        }
+        setDecoratorFactory(levelOfDetail);
+
+        serverStatus = decoratorFactory.createDecoratedStatus(serverStatus, details);
 
         return serverStatus;
     }
 
-    /**
-     * selects which server status detail to be added, then adds it
-     *
-     * @param serverStatus the server status to be added to
-     * @param detail       which detail to add
-     * @return the augmented server status
-     */
-    private ServerStatus decorateServerStatus(ServerStatus serverStatus, String detail) {
-        switch (detail) {
-            case "extensions":
-                return new ExtensionsDecorator(serverStatus);
-            case "memory":
-                return new MemoryDecorator(serverStatus);
-            case "operations":
-                return new OperationsDecorator(serverStatus);
-            default:
-                throw new BadRequestException("Invalid details option: " + detail);
+    private void setDecoratorFactory(String levelOfDetail) {
+        if (levelOfDetail == null){
+            return;
         }
+
+        if (levelOfDetail.equals("complex")){
+            decoratorFactory = new ComplexDecoratorFactory();
+            return;
+        }
+
+        if (levelOfDetail.equals("simple")){
+            decoratorFactory = new SimpleDecoratorFactory();
+            return;
+        }
+
+        throw new BadRequestException("Invalid level of detail.");
     }
+
 }
