@@ -6,9 +6,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import com.acme.BadRequestException;
 import com.acme.DecoratorFactory;
 import com.acme.beans.complex.ComplexDecoratorFactory;
-import com.acme.beans.complex.ExtensionsDecorator;
-import com.acme.beans.complex.MemoryDecorator;
-import com.acme.beans.complex.OperationsDecorator;
 import com.acme.beans.simple.SimpleDecoratorFactory;
 import com.acme.statusmgr.beans.ServerStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +77,7 @@ public class StatusController {
             return;
         }
 
-        if (levelOfDetail.equals("complex")){
+        if (levelOfDetail.equals("simple")){
             decoratorFactory = new SimpleDecoratorFactory();
             return;
         }

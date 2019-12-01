@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * Creates a decorated ServerStatus based on the details passed in
+ */
 @Component
 @Primary
 public class ComplexDecoratorFactory implements DecoratorFactory {
