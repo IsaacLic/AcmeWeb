@@ -2,7 +2,7 @@ package com.acme.beans.simple;
 
 import com.acme.beans.complex.ServerStatusDecorator;
 import com.acme.servermgr.ServerManager;
-import com.acme.statusmgr.beans.ServerStatus;
+import com.acme.beans.ServerStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
@@ -25,7 +25,7 @@ public class SimpleOperationsDecorator extends ServerStatusDecorator {
      */
     public String getStatusDesc() {
         String operationStatusMessage;
-        if (ServerManager.isOperatingNormally()) {
+        if (serverManager.isOperatingNormally()) {
             operationStatusMessage = "operating normally";
         } else {
             operationStatusMessage = "not operating normally";

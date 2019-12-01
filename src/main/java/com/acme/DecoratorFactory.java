@@ -1,6 +1,6 @@
 package com.acme;
 
-import com.acme.statusmgr.beans.ServerStatus;
+import com.acme.beans.ServerStatus;
 
 import java.util.List;
 

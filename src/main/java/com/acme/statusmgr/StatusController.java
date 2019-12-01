@@ -1,17 +1,18 @@
 package com.acme.statusmgr;
 
-import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
-
 import com.acme.BadRequestException;
 import com.acme.DecoratorFactory;
+import com.acme.beans.ServerStatus;
 import com.acme.beans.complex.ComplexDecoratorFactory;
 import com.acme.beans.simple.SimpleDecoratorFactory;
-import com.acme.statusmgr.beans.ServerStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
+
 
 /**
  * Controller for all web/REST requests about the status of servers

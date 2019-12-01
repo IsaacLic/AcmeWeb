@@ -1,8 +1,7 @@
 package com.acme.beans.simple;
 
+import com.acme.beans.ServerStatus;
 import com.acme.beans.complex.ServerStatusDecorator;
-import com.acme.servermgr.ServerManager;
-import com.acme.statusmgr.beans.ServerStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
@@ -24,7 +23,7 @@ public class SimpleMemoryDecorator extends ServerStatusDecorator {
      * @return the detailed status description
      */
     public String getStatusDesc() {
-        return serverStatus.getStatusDesc() + ", and its " + ServerManager.getMemoryStatus();
+        return serverStatus.getStatusDesc() + ", and its " + serverManager.getMemoryStatus();
     }
 
     /**

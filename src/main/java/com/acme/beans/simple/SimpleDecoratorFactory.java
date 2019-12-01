@@ -2,7 +2,7 @@ package com.acme.beans.simple;
 
 import com.acme.BadRequestException;
 import com.acme.DecoratorFactory;
-import com.acme.statusmgr.beans.ServerStatus;
+import com.acme.beans.ServerStatus;
 
 import java.util.List;
 

@@ -1,8 +1,7 @@
 package com.acme.beans.complex;
 
 
-import com.acme.servermgr.ServerManager;
-import com.acme.statusmgr.beans.ServerStatus;
+import com.acme.beans.ServerStatus;
 
 /**
  * Abstract decorator for adding to the status description
@@ -12,6 +11,7 @@ public abstract class ServerStatusDecorator extends ServerStatus {
     private final ServerStatus serverStatus;
 
     public ServerStatusDecorator(ServerStatus serverStatus) {
+        super(serverStatus.getId(), serverStatus.getContentHeader());
         this.serverStatus = serverStatus;
     }
 
@@ -21,7 +21,7 @@ public abstract class ServerStatusDecorator extends ServerStatus {
      * @return String the current basic server status
      */
     public String getStatusDesc() {
-        return ServerManager.getCurrentServerStatus();
+        return serverManager.getCurrentServerStatus();
     }
 
 
