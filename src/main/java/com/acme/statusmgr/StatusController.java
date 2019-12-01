@@ -7,7 +7,7 @@ import com.acme.BadRequestException;
 import com.acme.beans.ExtensionsDecorator;
 import com.acme.beans.MemoryDecorator;
 import com.acme.beans.OperationsDecorator;
-import com.acme.statusmgr.beans.ServerStatus;
+import com.acme.beans.ServerStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
