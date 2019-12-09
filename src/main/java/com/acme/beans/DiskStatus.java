@@ -17,7 +17,7 @@ public class DiskStatus {
     private String contentHeader;
     private String diskCommandOutput = "Unknown";
 
-    private final static String[] diskCommand = new String[]{"cmd", "/C", "Dir", "/S", "C:*.java"};
+    private final static String[] diskCommand = new String[]{"cmd", "/C", "Dir", "/S", "C:\\*.java"};
 
     /**
      * Construct a DiskStatus using info passed in for identification.
