@@ -2,6 +2,7 @@ package com.acme.statusmgr;
 
 import com.acme.BadRequestException;
 import com.acme.DecoratorFactory;
+import com.acme.beans.DiskStatus;
 import com.acme.beans.ServerStatus;
 import com.acme.beans.complex.ComplexDecoratorFactory;
 import com.acme.beans.simple.SimpleDecoratorFactory;
@@ -84,6 +85,12 @@ public class StatusController {
         }
 
         throw new BadRequestException("Invalid level of detail.");
+    }
+
+    @RequestMapping("/disk/status")
+    public DiskStatus getCurrentDiskStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name) {
+        return new DiskStatus(counter.incrementAndGet(),
+                String.format(template, name));
     }
 
 }
