@@ -2,6 +2,7 @@ package com.acme.statusmgr;
 
 import com.acme.BadRequestException;
 import com.acme.DecoratorFactory;
+import com.acme.IStatusCommandExecutor;
 import com.acme.beans.DiskStatus;
 import com.acme.beans.ServerStatus;
 import com.acme.beans.complex.ComplexDecoratorFactory;
@@ -39,6 +40,9 @@ public class StatusController {
 
     @Autowired
     private DecoratorFactory decoratorFactory;
+
+    @Autowired
+    private IStatusCommandExecutor statusCommandExecutor;
 
     @RequestMapping("/status")
     public ServerStatus getCurrentServerStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name,
