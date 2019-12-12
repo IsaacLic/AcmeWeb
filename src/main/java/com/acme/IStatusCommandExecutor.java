@@ -1,10 +1,10 @@
 package com.acme;
 
-import com.acme.beans.ServerStatus;
+import com.acme.beans.StatusInfo;
 
 public interface IStatusCommandExecutor {
 
-    public void addServerStatusCommand(ServerStatusCommand command);
+    public void addServerStatusCommand(Command command);
 
-    public ServerStatus runNextStatusCommand();
+    public StatusInfo runNextStatusCommand();
 }
