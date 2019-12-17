@@ -2,9 +2,7 @@ package com.acme.executors;
 
 import com.acme.commands.Command;
 import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
 
-@Component
 @Primary
 public class SimpleStatusCommandExecutor implements IStatusCommandExecutor {
 
