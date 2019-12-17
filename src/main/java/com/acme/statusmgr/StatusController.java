@@ -2,6 +2,7 @@ package com.acme.statusmgr;
 
 import com.acme.BadRequestException;
 import com.acme.DecoratorFactory;
+import com.acme.commands.BasicServerStatusCmd;
 import com.acme.executors.IStatusCommandExecutor;
 import com.acme.beans.DiskStatus;
 import com.acme.beans.ServerStatus;
@@ -48,8 +49,9 @@ public class StatusController {
     public ServerStatus getCurrentServerStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name,
                                                @RequestParam(required = false) List<String> details) {
         System.out.println("*** DEBUG INFO ***" + details);
-        return new ServerStatus(counter.incrementAndGet(),
-                String.format(template, name));
+        BasicServerStatusCmd cmd = new BasicServerStatusCmd(counter.incrementAndGet(), template, name);
+        statusCommandExecutor.executeCommand(cmd);
+        return cmd.getResult();
     }
 
     /**

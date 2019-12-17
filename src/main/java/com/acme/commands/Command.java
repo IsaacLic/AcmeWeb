@@ -6,6 +6,6 @@ public interface Command {
 
     public void execute();
 
-    public StatusInfo determineStatus();
+    public StatusInfo getResult();
 
 }
