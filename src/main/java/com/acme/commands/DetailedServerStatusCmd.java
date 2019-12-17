@@ -8,6 +8,9 @@ import com.acme.beans.simple.SimpleDecoratorFactory;
 
 import java.util.List;
 
+/**
+ * Command for determining the detailed server status
+ */
 public class DetailedServerStatusCmd implements Command {
 
     private final long Id;
@@ -44,6 +47,10 @@ public class DetailedServerStatusCmd implements Command {
         return status;
     }
 
+    /**
+     * Sets the decorator factory to the specified level of detail.
+     * If no level was specified, the default factory is used.
+     */
     private void setDecoratorFactory() {
         if (levelOfDetail == null) {
             return;
