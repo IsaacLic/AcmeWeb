@@ -18,6 +18,7 @@ public class DiskStatus implements StatusInfo {
     private String diskCommandOutput = "Unknown";
 
     private final static String[] diskCommand = new String[]{"cmd", "/C", "Dir", "/S", "C:*.java"};
+    private String statusDesc;
 
     /**
      * Construct a DiskStatus using info passed in for identification.
@@ -42,7 +43,11 @@ public class DiskStatus implements StatusInfo {
         return contentHeader;
     }
 
-    public String getStatusDesc() {
+    /**
+     * Generates the current status description
+     * @return the current disk status
+     */
+    public String createStatusDesc() {
         String result = "";
 
         Runtime rt = Runtime.getRuntime();
@@ -58,6 +63,16 @@ public class DiskStatus implements StatusInfo {
         }
 
         return result;
+    }
+
+    @Override
+    public void setStatusDesc(String statusDesc) {
+        this.statusDesc = statusDesc;
+    }
+
+    @Override
+    public String getStatusDesc() {
+        return statusDesc;
     }
 
 

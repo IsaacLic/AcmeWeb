@@ -36,18 +36,34 @@ public class ServerStatus implements StatusInfo {
 
     }
 
+    @Override
     public long getId() {
         return id;
     }
 
+    @Override
     public String getContentHeader() {
 
         return contentHeader;
     }
 
-    public String getStatusDesc() {
+    /**
+     * Generates the current status description
+     * @return the current server status
+     */
+    @Override
+    public String createStatusDesc() {
         return serverManager.getCurrentServerStatus();
     }
 
+    @Override
+    public void setStatusDesc(String statusDesc){
+        this.statusDesc = statusDesc;
+    }
+
+    @Override
+    public String getStatusDesc() {
+        return statusDesc;
+    }
 
 }

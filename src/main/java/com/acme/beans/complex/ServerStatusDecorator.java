@@ -20,7 +20,7 @@ public abstract class ServerStatusDecorator extends ServerStatus {
      *
      * @return String the current basic server status
      */
-    public String getStatusDesc() {
+    public String createStatusDesc() {
         return serverManager.getCurrentServerStatus();
     }
 

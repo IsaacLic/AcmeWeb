@@ -20,7 +20,7 @@ public class MemoryDecorator extends ServerStatusDecorator {
      *
      * @return the detailed status description
      */
-    public String getStatusDesc() {
-        return serverStatus.getStatusDesc() + ", and its " + serverManager.getMemoryStatus();
+    public String createStatusDesc() {
+        return serverStatus.createStatusDesc() + ", and its " + serverManager.getMemoryStatus();
     }
 }
