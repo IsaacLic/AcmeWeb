@@ -1,8 +1,10 @@
 package com.acme.commands;
 
 import com.acme.beans.ServerStatus;
-import com.acme.beans.StatusInfo;
 
+/**
+ * Command for determining the basic server status
+ */
 public class BasicServerStatusCmd implements Command {
 
     private final long Id;
