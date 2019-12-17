@@ -1,7 +1,6 @@
-package com.acme.beans.simple;
+package com.acme.beans.decorators.simple;
 
-import com.acme.beans.complex.ServerStatusDecorator;
-import com.acme.servermgr.ServerManager;
+import com.acme.beans.decorators.complex.ServerStatusDecorator;
 import com.acme.beans.ServerStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 

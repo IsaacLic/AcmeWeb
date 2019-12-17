@@ -1,7 +1,7 @@
-package com.acme.beans.complex;
+package com.acme.beans.decorators.complex;
 
 import com.acme.BadRequestException;
-import com.acme.DecoratorFactory;
+import com.acme.beans.decorators.DecoratorFactory;
 import com.acme.beans.ServerStatus;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;

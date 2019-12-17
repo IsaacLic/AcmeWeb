@@ -1,29 +1,28 @@
-package com.acme.beans.simple;
+package com.acme.beans.decorators.simple;
 
+import com.acme.beans.decorators.complex.ServerStatusDecorator;
 import com.acme.beans.ServerStatus;
-import com.acme.beans.complex.ServerStatusDecorator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
- * Adds the detail about the memory to the ServerStatus. Hides the id and content header fields
+ * Adds the detail about the extensions to the ServerStatus. Hides the id and content header fields
  */
-public class SimpleMemoryDecorator extends ServerStatusDecorator {
+public class SimpleExtensionsDecorator extends ServerStatusDecorator {
 
     private final ServerStatus serverStatus;
 
-    public SimpleMemoryDecorator(ServerStatus serverStatus) {
+    public SimpleExtensionsDecorator(ServerStatus serverStatus) {
         super(serverStatus);
-
         this.serverStatus = serverStatus;
     }
 
     /**
-     * Adds the memory information to the status description
+     * Adds the extensions information to the status description
      *
      * @return the detailed status description
      */
     public String getStatusDesc() {
-        return serverStatus.getStatusDesc() + ", and its " + serverManager.getMemoryStatus();
+        return serverStatus.getStatusDesc() + ", and is using these extensions - " + serverManager.getExtensions();
     }
 
     /**
