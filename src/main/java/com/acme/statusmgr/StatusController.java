@@ -2,7 +2,7 @@ package com.acme.statusmgr;
 
 import com.acme.BadRequestException;
 import com.acme.DecoratorFactory;
-import com.acme.IStatusCommandExecutor;
+import com.acme.executors.IStatusCommandExecutor;
 import com.acme.beans.DiskStatus;
 import com.acme.beans.ServerStatus;
 import com.acme.beans.complex.ComplexDecoratorFactory;
