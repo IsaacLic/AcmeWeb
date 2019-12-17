@@ -9,15 +9,9 @@ import java.util.Queue;
 @Primary
 public class SimpleStatusCommandExecutor implements IStatusCommandExecutor {
 
-    private Queue<Command> commands = new LinkedList<Command>();
-
     @Override
-    public void addServerStatusCommand(Command command) {
-        commands.add(command);
+    public void executeCommand(Command command) {
+        command.execute();
     }
 
-    @Override
-    public StatusInfo runNextStatusCommand() {
-        return commands.poll().determineStatus();
-    }
 }
