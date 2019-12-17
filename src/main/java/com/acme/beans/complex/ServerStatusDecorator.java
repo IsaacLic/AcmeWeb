@@ -1,4 +1,4 @@
-package com.acme.beans.decorators.complex;
+package com.acme.beans.complex;
 
 
 import com.acme.beans.ServerStatus;

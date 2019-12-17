@@ -1,7 +1,10 @@
-package com.acme.executors;
+package com.acme;
 
-import com.acme.commands.Command;
+import com.acme.beans.StatusInfo;
 import org.springframework.context.annotation.Primary;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 @Primary
 public class SimpleStatusCommandExecutor implements IStatusCommandExecutor {

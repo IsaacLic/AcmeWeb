@@ -1,6 +1,6 @@
-package com.acme.executors;
+package com.acme;
 
-import com.acme.commands.Command;
+import com.acme.beans.StatusInfo;
 
 public interface IStatusCommandExecutor {
 

@@ -1,4 +1,4 @@
-package com.acme.commands;
+package com.acme;
 
 import com.acme.beans.StatusInfo;
 
