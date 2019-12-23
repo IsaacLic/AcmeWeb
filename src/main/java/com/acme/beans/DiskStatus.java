@@ -11,19 +11,20 @@ import java.util.stream.Collectors;
 /**
  * A POJO that represents Disk Status and can be used to generate JSON for that status
  */
-public class DiskStatus {
+public class DiskStatus implements StatusInfo {
 
-    private  long id;
+    private long id;
     private String contentHeader;
     private String diskCommandOutput = "Unknown";
 
+    private String statusDesc;
     private final static String[] diskCommand = new String[]{"cmd", "/C", "Dir", "/S", "C:\\*.java"};
 
     /**
      * Construct a DiskStatus using info passed in for identification.
      *
-     * @param id                a numeric identifier/counter of which request this
-     * @param contentHeader     info about the request
+     * @param id            a numeric identifier/counter of which request this
+     * @param contentHeader info about the request
      */
     public DiskStatus(long id, String contentHeader) {
         this.id = id;
@@ -42,7 +43,11 @@ public class DiskStatus {
         return contentHeader;
     }
 
-    public String getDiskCommandOutput() {
+    /**
+     * Generates the current status description
+     * @return the current disk status
+     */
+    public String createStatusDesc() {
         String result = "";
 
         Runtime rt = Runtime.getRuntime();
@@ -58,6 +63,16 @@ public class DiskStatus {
         }
 
         return result;
+    }
+
+    @Override
+    public void setStatusDesc(String statusDesc) {
+        this.statusDesc = statusDesc;
+    }
+
+    @Override
+    public String getStatusDesc() {
+        return statusDesc;
     }
 
 

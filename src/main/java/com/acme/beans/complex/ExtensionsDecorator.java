@@ -20,7 +20,7 @@ public class ExtensionsDecorator extends ServerStatusDecorator {
      *
      * @return the detailed status description
      */
-    public String getStatusDesc() {
-        return serverStatus.getStatusDesc() + ", and is using these extensions - " + serverManager.getExtensions();
+    public String createStatusDesc() {
+        return serverStatus.createStatusDesc() + ", and is using these extensions - " + serverManager.getExtensions();
     }
 }

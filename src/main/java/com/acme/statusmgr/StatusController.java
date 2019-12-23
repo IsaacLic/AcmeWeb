@@ -2,6 +2,10 @@ package com.acme.statusmgr;
 
 import com.acme.BadRequestException;
 import com.acme.DecoratorFactory;
+import com.acme.commands.BasicDiskStatusCmd;
+import com.acme.commands.BasicServerStatusCmd;
+import com.acme.commands.DetailedServerStatusCmd;
+import com.acme.executors.IStatusCommandExecutor;
 import com.acme.beans.DiskStatus;
 import com.acme.beans.ServerStatus;
 import com.acme.beans.complex.ComplexDecoratorFactory;
@@ -40,12 +44,16 @@ public class StatusController {
     @Autowired
     private DecoratorFactory decoratorFactory;
 
+    @Autowired
+    private IStatusCommandExecutor statusCommandExecutor;
+
     @RequestMapping("/status")
     public ServerStatus getCurrentServerStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name,
                                                @RequestParam(required = false) List<String> details) {
         System.out.println("*** DEBUG INFO ***" + details);
-        return new ServerStatus(counter.incrementAndGet(),
-                String.format(template, name));
+        BasicServerStatusCmd cmd = new BasicServerStatusCmd(counter.incrementAndGet(), template, name);
+        statusCommandExecutor.executeCommand(cmd);
+        return cmd.getResult();
     }
 
     /**
@@ -59,38 +67,19 @@ public class StatusController {
     public ServerStatus getCurrentDetailedServerStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name,
                                                        @RequestParam List<String> details,
                                                        @RequestParam(value = "levelofdetail", required = false) String levelOfDetail) {
-        ServerStatus serverStatus = new ServerStatus(counter.incrementAndGet(),
-                String.format(template, name));
 
-        setDecoratorFactory(levelOfDetail);
+        DetailedServerStatusCmd cmd = new DetailedServerStatusCmd(counter.incrementAndGet(), template, name,
+                decoratorFactory, details, levelOfDetail);
 
-        serverStatus = decoratorFactory.createDecoratedStatus(serverStatus, details);
-
-        return serverStatus;
-    }
-
-    private void setDecoratorFactory(String levelOfDetail) {
-        if (levelOfDetail == null){
-            return;
-        }
-
-        if (levelOfDetail.equals("complex")){
-            decoratorFactory = new ComplexDecoratorFactory();
-            return;
-        }
-
-        if (levelOfDetail.equals("simple")){
-            decoratorFactory = new SimpleDecoratorFactory();
-            return;
-        }
-
-        throw new BadRequestException("Invalid level of detail.");
+        statusCommandExecutor.executeCommand(cmd);
+        return cmd.getResult();
     }
 
     @RequestMapping("/disk/status")
     public DiskStatus getCurrentDiskStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name) {
-        return new DiskStatus(counter.incrementAndGet(),
-                String.format(template, name));
+        BasicDiskStatusCmd cmd = new BasicDiskStatusCmd(counter.incrementAndGet(), template, name);
+        statusCommandExecutor.executeCommand(cmd);
+        return cmd.getResult();
     }
 
 }
