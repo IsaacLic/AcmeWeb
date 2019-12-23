@@ -1,6 +1,7 @@
-package com.acme.commands;
+package com.acme.commands.Disk;
 
 import com.acme.beans.DiskStatus;
+import com.acme.commands.Command;
 
 /**
  * Command for determining the basic disk status

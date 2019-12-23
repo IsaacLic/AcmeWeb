@@ -1,15 +1,12 @@
 package com.acme.statusmgr;
 
-import com.acme.BadRequestException;
 import com.acme.DecoratorFactory;
-import com.acme.commands.BasicDiskStatusCmd;
-import com.acme.commands.BasicServerStatusCmd;
-import com.acme.commands.DetailedServerStatusCmd;
+import com.acme.commands.Disk.BasicDiskStatusCmd;
+import com.acme.commands.Server.BasicServerStatusCmd;
+import com.acme.commands.Server.DetailedServerStatusCmd;
 import com.acme.executors.IStatusCommandExecutor;
 import com.acme.beans.DiskStatus;
 import com.acme.beans.ServerStatus;
-import com.acme.beans.complex.ComplexDecoratorFactory;
-import com.acme.beans.simple.SimpleDecoratorFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

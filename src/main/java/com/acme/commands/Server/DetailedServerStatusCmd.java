@@ -1,10 +1,11 @@
-package com.acme.commands;
+package com.acme.commands.Server;
 
 import com.acme.BadRequestException;
 import com.acme.DecoratorFactory;
 import com.acme.beans.ServerStatus;
 import com.acme.beans.complex.ComplexDecoratorFactory;
 import com.acme.beans.simple.SimpleDecoratorFactory;
+import com.acme.commands.Command;
 
 import java.util.List;
 
