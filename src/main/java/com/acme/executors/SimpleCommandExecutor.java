@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Primary
-public class SimpleStatusCommandExecutor implements IStatusCommandExecutor {
+public class SimpleCommandExecutor implements ICommandExecutor {
 
     @Override
     public void executeCommand(Command command) {

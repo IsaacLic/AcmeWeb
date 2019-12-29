@@ -2,7 +2,7 @@ package com.acme.executors;
 
 import com.acme.commands.Command;
 
-public interface IStatusCommandExecutor {
+public interface ICommandExecutor {
 
     public void executeCommand(Command command);
 
