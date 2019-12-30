@@ -1,11 +1,17 @@
-package com.acme.commands;
+package com.acme.commands.Disk;
 
 import com.acme.beans.DiskStatus;
+import com.acme.commands.StatusCommand;
+import com.acme.executors.ICommandExecutor;
+import com.acme.executors.SimpleCommandExecutor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Command for determining the basic disk status
  */
-public class BasicDiskStatusCmd implements Command {
+public class BasicDiskStatusCmd implements StatusCommand {
+
+    private ICommandExecutor executor;
 
     private final long Id;
     private final String template;
@@ -17,12 +23,15 @@ public class BasicDiskStatusCmd implements Command {
         this.Id = Id;
         this.template = template;
         this.name = name;
+        executor = new SimpleCommandExecutor();
     }
 
     @Override
     public void execute() {
         status = new DiskStatus(Id, String.format(template, name));
-        status.setStatusDesc(status.createStatusDesc());
+        GenerateDiskStatusCmd cmd = new GenerateDiskStatusCmd();
+        executor.executeCommand(cmd);
+        status.setStatusDesc(cmd.getResult());
     }
 
     @Override

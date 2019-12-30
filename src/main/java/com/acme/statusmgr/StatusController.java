@@ -1,15 +1,12 @@
 package com.acme.statusmgr;
 
-import com.acme.BadRequestException;
 import com.acme.DecoratorFactory;
-import com.acme.commands.BasicDiskStatusCmd;
-import com.acme.commands.BasicServerStatusCmd;
-import com.acme.commands.DetailedServerStatusCmd;
-import com.acme.executors.IStatusCommandExecutor;
+import com.acme.commands.Disk.BasicDiskStatusCmd;
+import com.acme.commands.Server.BasicServerStatusCmd;
+import com.acme.commands.Server.DetailedServerStatusCmd;
+import com.acme.executors.ICommandExecutor;
 import com.acme.beans.DiskStatus;
 import com.acme.beans.ServerStatus;
-import com.acme.beans.complex.ComplexDecoratorFactory;
-import com.acme.beans.simple.SimpleDecoratorFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,14 +42,14 @@ public class StatusController {
     private DecoratorFactory decoratorFactory;
 
     @Autowired
-    private IStatusCommandExecutor statusCommandExecutor;
+    private ICommandExecutor executor;
 
     @RequestMapping("/status")
     public ServerStatus getCurrentServerStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name,
                                                @RequestParam(required = false) List<String> details) {
         System.out.println("*** DEBUG INFO ***" + details);
         BasicServerStatusCmd cmd = new BasicServerStatusCmd(counter.incrementAndGet(), template, name);
-        statusCommandExecutor.executeCommand(cmd);
+        executor.executeCommand(cmd);
         return cmd.getResult();
     }
 
@@ -71,14 +68,14 @@ public class StatusController {
         DetailedServerStatusCmd cmd = new DetailedServerStatusCmd(counter.incrementAndGet(), template, name,
                 decoratorFactory, details, levelOfDetail);
 
-        statusCommandExecutor.executeCommand(cmd);
+        executor.executeCommand(cmd);
         return cmd.getResult();
     }
 
     @RequestMapping("/disk/status")
     public DiskStatus getCurrentDiskStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name) {
         BasicDiskStatusCmd cmd = new BasicDiskStatusCmd(counter.incrementAndGet(), template, name);
-        statusCommandExecutor.executeCommand(cmd);
+        executor.executeCommand(cmd);
         return cmd.getResult();
     }
 

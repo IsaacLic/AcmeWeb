@@ -3,11 +3,11 @@ package com.acme.statusmgr;
 import com.acme.beans.DiskStatus;
 import com.acme.beans.ServerStatus;
 import com.acme.beans.complex.ComplexDecoratorFactory;
-import com.acme.commands.BasicDiskStatusCmd;
-import com.acme.commands.BasicServerStatusCmd;
-import com.acme.commands.DetailedServerStatusCmd;
-import com.acme.executors.IStatusCommandExecutor;
-import com.acme.executors.SimpleStatusCommandExecutor;
+import com.acme.commands.Disk.BasicDiskStatusCmd;
+import com.acme.commands.Server.BasicServerStatusCmd;
+import com.acme.commands.Server.DetailedServerStatusCmd;
+import com.acme.executors.ICommandExecutor;
+import com.acme.executors.SimpleCommandExecutor;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,11 +18,11 @@ import static org.junit.Assert.assertNull;
 
 public class StatusCommandTests {
 
-    private static IStatusCommandExecutor executor;
+    private static ICommandExecutor executor;
 
     @Before
     public void setUp() {
-        executor = new SimpleStatusCommandExecutor();
+        executor = new SimpleCommandExecutor();
     }
 
     @Test

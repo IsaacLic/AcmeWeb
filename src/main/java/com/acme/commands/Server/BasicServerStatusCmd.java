@@ -1,6 +1,7 @@
-package com.acme.commands;
+package com.acme.commands.Server;
 
 import com.acme.beans.ServerStatus;
+import com.acme.commands.Command;
 
 /**
  * Command for determining the basic server status
