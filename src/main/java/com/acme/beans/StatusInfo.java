@@ -9,8 +9,6 @@ public interface StatusInfo {
 
     public String getContentHeader();
 
-    public String createStatusDesc();
-
     public void setStatusDesc(String statusDesc);
 
     public String getStatusDesc();

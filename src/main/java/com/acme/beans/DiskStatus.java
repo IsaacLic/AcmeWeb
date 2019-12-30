@@ -1,13 +1,5 @@
 package com.acme.beans;
 
-import com.acme.Application;
-import com.acme.servermgr.ServerManager;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.stream.Collectors;
-
 /**
  * A POJO that represents Disk Status and can be used to generate JSON for that status
  */
@@ -18,7 +10,6 @@ public class DiskStatus implements StatusInfo {
     private String diskCommandOutput = "Unknown";
 
     private String statusDesc;
-    private final static String[] diskCommand = new String[]{"cmd", "/C", "Dir", "/S", "C:\\*.java"};
 
     /**
      * Construct a DiskStatus using info passed in for identification.
@@ -41,28 +32,6 @@ public class DiskStatus implements StatusInfo {
 
     public String getContentHeader() {
         return contentHeader;
-    }
-
-    /**
-     * Generates the current status description
-     * @return the current disk status
-     */
-    public String createStatusDesc() {
-        String result = "";
-
-        Runtime rt = Runtime.getRuntime();
-
-        try {
-            Process chkProcess = rt.exec(diskCommand);
-
-            result = new BufferedReader(new InputStreamReader(chkProcess.getInputStream()))
-                    .lines().collect(Collectors.joining("\n"));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return result;
     }
 
     @Override
