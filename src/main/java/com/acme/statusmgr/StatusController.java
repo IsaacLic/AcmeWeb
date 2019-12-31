@@ -1,7 +1,7 @@
 package com.acme.statusmgr;
 
 import com.acme.DecoratorFactory;
-import com.acme.commands.Disk.BasicDiskStatusCmd;
+import com.acme.commands.Disk.DiskStatusCmd;
 import com.acme.commands.Server.BasicServerStatusCmd;
 import com.acme.commands.Server.DetailedServerStatusCmd;
 import com.acme.executors.ICommandExecutor;
@@ -74,7 +74,7 @@ public class StatusController {
 
     @RequestMapping("/disk/status")
     public DiskStatus getCurrentDiskStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name) {
-        BasicDiskStatusCmd cmd = new BasicDiskStatusCmd(counter.incrementAndGet(), template, name);
+        DiskStatusCmd cmd = new DiskStatusCmd(counter.incrementAndGet(), template, name);
         executor.executeCommand(cmd);
         return cmd.getResult();
     }
