@@ -3,7 +3,7 @@ package com.acme.statusmgr;
 import com.acme.beans.DiskStatus;
 import com.acme.beans.ServerStatus;
 import com.acme.beans.complex.ComplexDecoratorFactory;
-import com.acme.commands.Disk.BasicDiskStatusCmd;
+import com.acme.commands.Disk.DiskStatusCmd;
 import com.acme.commands.Server.BasicServerStatusCmd;
 import com.acme.commands.Server.DetailedServerStatusCmd;
 import com.acme.executors.ICommandExecutor;
@@ -83,7 +83,7 @@ public class StatusCommandTests {
     @Test
     public void basicDiskStatusCommandShouldCreateBasicStatus() {
 
-        BasicDiskStatusCmd cmd = new BasicDiskStatusCmd(5, "Server Status requested by %s", "Anonymous");
+        DiskStatusCmd cmd = new DiskStatusCmd(5, "Server Status requested by %s", "Anonymous");
 
         executor.executeCommand(cmd);
         DiskStatus result = cmd.getResult();
